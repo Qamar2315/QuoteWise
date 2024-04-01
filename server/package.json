@@ -1,0 +1,15 @@
+{
+  "name": "quotewise_server",
+  "version": "1.0.0",
+  "description": "server for my new angular app quote wise",
+  "main": "y",
+  "scripts": {
+    "test": "npm test"
+  },
+  "keywords": [
+    "angular",
+    "project"
+  ],
+  "author": "Qamar Ul Islam",
+  "license": "MIT"
+}
