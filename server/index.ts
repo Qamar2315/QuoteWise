@@ -3,6 +3,12 @@ import mongoose from "mongoose";
 import cors from "cors"
 // import deckRoutes from './routes/deck';
 import { notFound, errorHandler } from './middlwares/ErrorHandler';
+import * as dotenv from 'dotenv';
+dotenv.config(); // Load environment variables from .env file
+
+const PORT = process.env.PORT || 8080;
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/quotewise_database';
+
 
 const app:Application = express();
 
@@ -23,10 +29,10 @@ app.use(errorHandler);
 //database connection
 main().catch(err => console.log(err))
 async function main() {
-  await mongoose.connect('mongodb://127.0.0.1:27017/quotewise_database');
+  await mongoose.connect(MONGODB_URI);
   console.log("connected");
 }
 
 app.listen(8080, () => {
-    console.log("server is listening at port",8080)
+    console.log("server is listening at port",PORT)
 });
