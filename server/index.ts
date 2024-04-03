@@ -1,7 +1,6 @@
 import express, {Application,Request,Response} from "express";
 import mongoose from "mongoose";
 import cors from "cors"
-// import deckRoutes from './routes/deck';
 import { notFound, errorHandler } from './middlwares/ErrorHandler';
 import * as dotenv from 'dotenv';
 dotenv.config(); // Load environment variables from .env file
@@ -17,8 +16,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-//routes middlewares
-// app.use('/api/decks', deckRoutes);
+//routes middlwares will be added soon
 
 //not found middleware
 app.use(notFound);
