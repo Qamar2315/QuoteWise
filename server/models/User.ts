@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document, InferSchemaType } from "mongoose";
+import mongoose, { Schema, InferSchemaType } from "mongoose";
 
 // Define Mongoose schema for User
 const UserSchema: Schema = new Schema({
@@ -12,6 +12,8 @@ const UserSchema: Schema = new Schema({
 });
 
 type UserModel = InferSchemaType<typeof UserSchema>;
+
+export { UserModel };
 
 // Create and export User model
 export default mongoose.model<UserModel>("User", UserSchema);
