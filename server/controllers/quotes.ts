@@ -7,6 +7,7 @@ import { Request, Response } from 'express';
 const getQuotes = asyncHandler(async (req: Request, res: Response) => {
     // Fetch all quotes from the database
     const quotes = await Quote.find({});
+    
     if (quotes) {
         res.status(200).json({
             success: true,

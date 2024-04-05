@@ -1,6 +1,7 @@
 import express, {Application,Request,Response} from "express";
 import mongoose from "mongoose";
 import cors from "cors"
+import quoteRoutes from "./routes/quotes";
 import { notFound, errorHandler } from './middlwares/ErrorHandler';
 import * as dotenv from 'dotenv';
 dotenv.config(); // Load environment variables from .env file
@@ -15,6 +16,9 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+//routes
+app.use("/api/quotes",quoteRoutes);
+
 //not found middleware
 app.use(notFound);
 
@@ -28,6 +32,6 @@ async function main() {
   console.log("connected");
 }
 
-app.listen(8080, () => {
+app.listen(PORT, () => {
     console.log("server is listening at port",PORT)
 });
