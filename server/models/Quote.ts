@@ -12,9 +12,7 @@ const QuoteSchema: Schema = new Schema({
   updatedAt: { type: Date, default: Date.now },
 });
 
-type QuoteModel = InferSchemaType<typeof QuoteSchema>;
-
-export { QuoteModel };
+export type QuoteModel = InferSchemaType<typeof QuoteSchema>;
 
 // Create and export Quote model
 export default mongoose.model<QuoteModel>("Quote", QuoteSchema);
