@@ -9,7 +9,7 @@ const CommentSchema: Schema = new Schema({
   updatedAt: { type: Date, default: Date.now },
 });
 
-type CommentModel = InferSchemaType<typeof CommentSchema>;
+export type CommentModel = InferSchemaType<typeof CommentSchema>;
 
 // Create and export Comment model
 export default mongoose.model<CommentModel>("Comment", CommentSchema);

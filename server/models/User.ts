@@ -11,9 +11,7 @@ const UserSchema: Schema = new Schema({
   updatedAt: { type: Date, default: Date.now },
 });
 
-type UserModel = InferSchemaType<typeof UserSchema>;
-
-export { UserModel };
+export type UserModel = InferSchemaType<typeof UserSchema>;
 
 // Create and export User model
 export default mongoose.model<UserModel>("User", UserSchema);
