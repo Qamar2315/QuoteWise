@@ -144,7 +144,7 @@ const getProfile = asyncHandler(async (req: Request, res: Response) => {
   const userId: string = req.params.userId;
   // Check if the user with the given ID exists
   const user: UserModel | null = await User.findById(userId).populate(
-    "recipes"
+    "quotes"
   );
   if (!user) {
     throw new AppError("User not found", 404);

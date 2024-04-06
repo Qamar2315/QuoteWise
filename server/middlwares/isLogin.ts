@@ -4,16 +4,17 @@ import User, { UserModel } from '../models/User'; // Assuming you have a User mo
 import asyncHandler from '../utilities/CatchAsync';
 import AppError from '../utilities/AppError';
 
-const isLogin = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
-    let token: string | undefined;
+const isLogin = asyncHandler(async (req: any, res: Response, next: NextFunction) => {
+    let token: any | undefined;
     if (
         req.headers.authorization &&
         req.headers.authorization.startsWith("Bearer")
     ) {
         try {
             token = req.headers.authorization.split(" ")[1];
-            const decoded = jwt.verify(token, "SECURITY_INFORMATION_FOR_SESSION") as { _id: string; name: string; email: string };
-            if (decoded._id && decoded.name && decoded.email) {
+            const decoded = jwt.verify(token, "SECURITY_INFORMATION_FOR_SESSION") as any;
+            
+            if (decoded._id && decoded.username && decoded.email) {
                 const user: UserModel | null = await User.findById(decoded._id);
                 if (!user) {
                     throw new AppError("NOT AUTHORIZED, TOKEN FAILED!", 201);

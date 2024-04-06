@@ -6,6 +6,7 @@ const UserSchema: Schema = new Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   favoriteQuotes: [{ type: Schema.Types.ObjectId, ref: "Quote" }],
+  quotes: [{ type: Schema.Types.ObjectId, ref: "Quote" }],
   likedQuotes: [{ type: Schema.Types.ObjectId, ref: "Quote" }],
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
