@@ -15,7 +15,7 @@ router.route('/login')
 router.route('/:userId')
     .get(isLogin, getProfile)
     .put(isLogin, isProfileAuthor, updateProfile);
-
+    
 router.route('/:userId/update-password')
     .put(isLogin, isProfileAuthor, changePassword);
 
