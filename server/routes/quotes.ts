@@ -1,16 +1,16 @@
 import express from 'express';
 // import { getQuotes, getQuoteById, addQuote, updateQuote, deleteQuote } from '../controllers/quotes';
 // import { addComment, deleteComment } from '../controllers/comments';
-// import { isLogin } from "";
+import { isLogin } from "../middlwares/isLogin";
 // import { isQuoteAuthor, isCommentAuthor } from "../middlewares/authorization";
-// import { validateQuote, validateComment } from "../middlewares/schemaValidator";
-import { getQuotes } from "../controllers/quotes";
+import { validateQuote } from "../middlwares/schemaValidator";
+import { getQuotes, addQuote } from "../controllers/quotes";
 
 const router = express.Router();
 
 router.route('/')
     .get(getQuotes)
-    // .post(isLogin, validateQuote, addQuote);
+    .post(isLogin, validateQuote, addQuote);
 
 // router.route('/:id')
 //     .get(getQuoteById)

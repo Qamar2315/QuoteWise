@@ -1,6 +1,7 @@
 import asyncHandler from '../utilities/CatchAsync';
 import Quote from '../models/Quote';
 import User from '../models/User';
+import { UserModel } from '../models/User';
 import AppError from '../utilities/AppError';
 import { Request, Response } from 'express';
 
@@ -38,31 +39,32 @@ const getQuoteById = asyncHandler(async (req: Request, res: Response) => {
     });
 });
 
-// const addQuote = asyncHandler(async (req: Request, res: Response) => {
-//     const { content } = req.body;
 
-//     // Create a new quote
-//     const newQuote = new Quote({
-//         content,
-//         user: req.user._id
-//     });
+const addQuote = asyncHandler(async (req: any, res: Response) => {
+    const { content } = req.body;
 
-//     // Save the new quote
-//     await newQuote.save();
+    // Create a new quote
+    const newQuote = new Quote({
+        content,
+        user: req.user._id
+    });
 
-//     // Add the quote to user's favorite quotes
-//     const user: UserModel | null = await User.findById(req.user._id);
-//     if (user) {
-//         user.favoriteQuotes.push(newQuote);
-//         await user.save();
-//     }
+    // Save the new quote
+    await newQuote.save();
 
-//     res.status(201).json({
-//         success: true,
-//         message: 'Quote added successfully',
-//         data: newQuote
-//     });
-// });
+    // Add the quote to user's favorite quotes
+    const user: UserModel = await User.findById(req.user._id);
+    if (user) {
+        user.favoriteQuotes.push(newQuote);
+        await user.save();
+    }
+
+    res.status(201).json({
+        success: true,
+        message: 'Quote added successfully',
+        data: newQuote
+    });
+});
 
 // const updateQuote = asyncHandler(async (req: Request, res: Response) => {
 //     const { id } = req.params; // Get quote ID from request parameters
@@ -122,6 +124,6 @@ const getQuoteById = asyncHandler(async (req: Request, res: Response) => {
 //     }
 // });
 
-export { getQuotes, getQuoteById
+export { getQuotes, getQuoteById, addQuote
     // , addQuote, updateQuote, deleteQuote
  };
