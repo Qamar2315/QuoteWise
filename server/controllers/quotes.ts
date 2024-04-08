@@ -98,42 +98,42 @@ const updateQuote = asyncHandler(async (req: Request, res: Response) => {
     });
 });
 
-// const deleteQuote = asyncHandler(async (req: Request, res: Response) => {
-//     const { id } = req.params; // Get quote ID from request parameters
+const deleteQuote = asyncHandler(async (req: Request, res: Response) => {
+    const { id } = req.params; // Get quote ID from request parameters
 
-//     try {
-//         // Check if the quote with the given ID exists
-//         const quote = await Quote.findById(id);
+    try {
+        // Check if the quote with the given ID exists
+        const quote = await Quote.findById(id);
 
-//         if (!quote) {
-//             return res.status(404).json({
-//                 success: false,
-//                 message: 'Quote not found'
-//             });
-//         }
+        if (!quote) {
+            return res.status(404).json({
+                success: false,
+                message: 'Quote not found'
+            });
+        }
 
-//         // Delete the quote
-//         await Quote.deleteOne({ _id: id });
+        // Delete the quote
+        await Quote.deleteOne({ _id: id });
 
-//         res.status(200).json({
-//             success: true,
-//             message: 'Quote deleted successfully'
-//         });
-//     } catch (error) {
-//         console.error(error);
-//         res.status(500).json({
-//             success: false,
-//             message: 'Internal Server Error'
-//         });
-//     }
-// });
+        res.status(200).json({
+            success: true,
+            message: 'Quote deleted successfully'
+        });
 
-
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            success: false,
+            message: 'Internal Server Error'
+        });
+    }
+});
 
 
 export {
   getQuotes,
   getQuoteById,
   addQuote,
-  updateQuote
+  updateQuote,
+  deleteQuote
 };
