@@ -1,69 +1,72 @@
-import asyncHandler from '../utilities/CatchAsync';
-import Quote from '../models/Quote';
-import User from '../models/User';
-import { UserModel } from '../models/User';
-import AppError from '../utilities/AppError';
-import { Request, Response } from 'express';
+import asyncHandler from "../utilities/CatchAsync";
+import Quote from "../models/Quote";
+import User, { UserModel } from "../models/User";
+import AppError from "../utilities/AppError";
+import { Request, Response } from "express";
 
 const getQuotes = asyncHandler(async (req: Request, res: Response) => {
-    // Fetch all quotes from the database
-    const quotes = await Quote.find({});
-    
-    if (quotes) {
-        res.status(200).json({
-            success: true,
-            data: quotes
-        });
-    } else {
-        throw new AppError("Internal Server Error", 400);
-    }
+  // Fetch all quotes from the database
+  const quotes = await Quote.find({});
+
+  if (quotes) {
+    res.status(200).json({
+      success: true,
+      data: quotes,
+    });
+  } else {
+    throw new AppError("Internal Server Error", 400);
+  }
 });
 
 const getQuoteById = asyncHandler(async (req: Request, res: Response) => {
-    const { id } = req.params; // Get quote ID from request parameters
+  const { id } = req.params; // Get quote ID from request parameters
 
-    // Fetch the quote from the database using the ID
-    const quote = await Quote.findById(id)
-        .populate('user', 'username email');
+  // Fetch the quote from the database using the ID
+  const quote = await Quote.findById(id).populate("user", "username email");
 
-    if (!quote) {
-        return res.status(404).json({
-            success: false,
-            message: 'Quote not found'
-        });
-    }
-
-    res.status(200).json({
-        success: true,
-        data: quote
+  if (!quote) {
+    return res.status(404).json({
+      success: false,
+      message: "Quote not found",
     });
+  }
+
+  res.status(200).json({
+    success: true,
+    data: quote,
+  });
 });
 
+const addQuote = asyncHandler(async (req: Request, res: Response) => {
+  const { content, userPrompt } = req.body;
 
-const addQuote = asyncHandler(async (req: any, res: Response) => {
-    const { content } = req.body;
+  // Check if required data is present
+  if (!content || !userPrompt) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Content and userPrompt are required" });
+  }
 
+  try {
     // Create a new quote
     const newQuote = new Quote({
         content,
-        user: req.user._id
+        userPrompt,
+        author: req.user?._id
     });
 
     // Save the new quote
-    await newQuote.save();
-
-    // Add the quote to user's favorite quotes
-    const user: UserModel = await User.findById(req.user._id);
-    if (user) {
-        user.favoriteQuotes.push(newQuote);
-        await user.save();
-    }
+    const savedQuote = await newQuote.save();
 
     res.status(201).json({
         success: true,
-        message: 'Quote added successfully',
-        data: newQuote
+        message: "Quote added successfully",
+        data: savedQuote,
     });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
 });
 
 // const updateQuote = asyncHandler(async (req: Request, res: Response) => {
@@ -124,6 +127,9 @@ const addQuote = asyncHandler(async (req: any, res: Response) => {
 //     }
 // });
 
-export { getQuotes, getQuoteById, addQuote
-    // , addQuote, updateQuote, deleteQuote
- };
+export {
+  getQuotes,
+  getQuoteById,
+  addQuote,
+  // , addQuote, updateQuote, deleteQuote
+};

@@ -12,6 +12,18 @@ const QuoteSchema: Schema = new Schema({
   updatedAt: { type: Date, default: Date.now },
 });
 
+// Define interface for Quote document
+export interface QuoteDocument extends Document {
+  content: string;
+  userPrompt: string;
+  author: Schema.Types.ObjectId;
+  likes: Schema.Types.ObjectId[];
+  favorites: Schema.Types.ObjectId[];
+  comments: Schema.Types.ObjectId[];
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 export type QuoteModel = InferSchemaType<typeof QuoteSchema>;
 
 // Create and export Quote model
