@@ -69,33 +69,34 @@ const addQuote = asyncHandler(async (req: Request, res: Response) => {
   }
 });
 
-// const updateQuote = asyncHandler(async (req: Request, res: Response) => {
-//     const { id } = req.params; // Get quote ID from request parameters
-//     const { content } = req.body;
+const updateQuote = asyncHandler(async (req: Request, res: Response) => {
+    const { id } = req.params; // Get quote ID from request parameters
+    const { content, userPrompt } = req.body;
 
-//     // Check if the quote with the given ID exists
-//     let quote: QuoteModel | null = await Quote.findById(id);
+    // Check if the quote with the given ID exists
+    let quote = await Quote.findById(id);
 
-//     if (!quote) {
-//         return res.status(404).json({
-//             success: false,
-//             message: 'Quote not found'
-//         });
-//     }
+    if (!quote) {
+        return res.status(404).json({
+            success: false,
+            message: 'Quote not found'
+        });
+    }
 
-//     // Update quote content
-//     quote.content = content || quote.content;
-//     quote.updatedAt = new Date();
+    // Update quote content
+    quote.content = content || quote.content;
+    quote.userPrompt = userPrompt || quote.userPrompt;
+    quote.updatedAt = new Date();
 
-//     // Save the updated quote
-//     await quote.save();
+    // Save the updated quote
+    await quote.save();
 
-//     res.status(200).json({
-//         success: true,
-//         message: 'Quote updated successfully',
-//         data: quote
-//     });
-// });
+    res.status(200).json({
+        success: true,
+        message: 'Quote updated successfully',
+        data: quote
+    });
+});
 
 // const deleteQuote = asyncHandler(async (req: Request, res: Response) => {
 //     const { id } = req.params; // Get quote ID from request parameters
@@ -127,9 +128,12 @@ const addQuote = asyncHandler(async (req: Request, res: Response) => {
 //     }
 // });
 
+
+
+
 export {
   getQuotes,
   getQuoteById,
   addQuote,
-  // , addQuote, updateQuote, deleteQuote
+  updateQuote
 };
