@@ -1,6 +1,6 @@
 import asyncHandler from "../utilities/CatchAsync";
 import Quote from "../models/Quote";
-import User, { UserModel } from "../models/User";
+import User from "../models/User";
 import AppError from "../utilities/AppError";
 import { Request, Response } from "express";
 

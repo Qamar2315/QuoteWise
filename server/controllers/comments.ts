@@ -28,6 +28,10 @@ const addComment = asyncHandler(async (req: Request, res: Response) => {
     // Save the new comment
     const savedComment = await newComment.save();
 
+    // Update the comments array field in the Quote model
+    quote.comments.push(savedComment._id);
+    await quote.save();
+
     res.status(201).json({
       success: true,
       message: "Comment added successfully",
@@ -52,13 +56,18 @@ const deleteComment = asyncHandler(async (req: Request, res: Response) => {
       });
     }
 
-    // Check if the user is the author of the comment
-    if (comment.user.toString() !== req.user?._id) {
-      return res.status(401).json({
+    // Find the quote associated with the comment
+    const quote: any = await Quote.findById(comment.quote);
+    if (!quote) {
+      return res.status(404).json({
         success: false,
-        message: "You are not authorized to delete this comment",
+        message: "Quote not found",
       });
     }
+
+    // Remove the comment ID from the comments array field in the Quote model
+    quote.comments = quote.comments.filter((c: any) => c.toString() !== id);
+    await quote.save();
 
     // Delete the comment
     await Comment.findByIdAndDelete(id);
@@ -73,4 +82,21 @@ const deleteComment = asyncHandler(async (req: Request, res: Response) => {
   }
 });
 
-export { addComment, deleteComment };
+const getComments = asyncHandler(async (req: Request, res: Response) => {
+  const { qId } = req.params; // Get quote ID from request parameters
+
+  try {
+    // Find all comments for the quote with the given ID
+    const comments = await Comment.find({ quote: qId });
+
+    res.status(200).json({
+      success: true,
+      data: comments,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+});
+
+export { addComment, deleteComment, getComments };

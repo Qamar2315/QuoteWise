@@ -36,12 +36,12 @@ export const isQuoteAuthor = asyncHandler(
 // Middleware to check if the user is the author of the comment
 export const isCommentAuthor = asyncHandler(
   async (req: any, res: Response, next: NextFunction) => {
-    const { cId } = req.params;
-    const comment : any = await Comment.findById(cId).populate("author");
+    const { id } = req.params;
+    const comment : any = await Comment.findById(id).populate("user");
     if (!comment) {
       throw new AppError("Comment Not Found", 404);
     } else {
-      const authorId: string = comment.author._id.toString();
+      const authorId: string = comment.user._id.toString();
       if (authorId !== req.user._id) {
         throw new AppError("Not Authorized", 401);
       } else {
