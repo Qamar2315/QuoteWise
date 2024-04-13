@@ -2,13 +2,13 @@
 import Joi from 'joi';
 
 interface UserSchema {
-  name: string;
+  username: string;
   email: string;
   password: string;
 }
 
 const userSchema = Joi.object<UserSchema>({
-  name: Joi.string().required(),
+  username: Joi.string().required(),
   email: Joi.string().email().required(),
   password: Joi.string().required()
 });

@@ -149,6 +149,14 @@ const likeQuote = asyncHandler(async (req: Request, res: Response) => {
       quote.likes.splice(userIndex, 1);
       await quote.save();
 
+      // Remove quote from user's likedQuotes
+      const user: any = await User.findById(req.user?._id);
+      const quoteIndex = user.likedQuotes.indexOf(id);
+      if (quoteIndex !== -1) {
+        user.likedQuotes.splice(quoteIndex, 1);
+        await user.save();
+      }
+
       res.status(200).json({
         success: true,
         message: "Quote unliked successfully",
@@ -157,6 +165,11 @@ const likeQuote = asyncHandler(async (req: Request, res: Response) => {
       // User has not liked the quote, so like it
       quote.likes.push(req.user?._id);
       await quote.save();
+
+      // Add quote to user's likedQuotes
+      const user: any = await User.findById(req.user?._id);
+      user.likedQuotes.push(id);
+      await user.save();
 
       res.status(200).json({
         success: true,
@@ -187,21 +200,39 @@ const addToFavorite = asyncHandler(async (req: Request, res: Response) => {
     }
 
     // Check if the user has already favorited the quote
-    if (quote.favorites.includes(req.user?._id)) {
-      return res.status(400).json({
-        success: false,
-        message: "You have already favorited this quote",
+    const index = quote.favorites.indexOf(req.user?._id);
+    if (index !== -1) {
+      // Remove user's ID from the list of favorites
+      quote.favorites.splice(index, 1);
+      await quote.save();
+
+      // Remove quote from user's favoriteQuotes
+      const user: any = await User.findById(req.user?._id);
+      const quoteIndex = user.favoriteQuotes.indexOf(id);
+      if (quoteIndex !== -1) {
+        user.favoriteQuotes.splice(quoteIndex, 1);
+        await user.save();
+      }
+
+      res.status(200).json({
+        success: true,
+        message: "Quote removed from favorites",
+      });
+    } else {
+      // Add user's ID to the list of favorites
+      quote.favorites.push(req.user?._id);
+      await quote.save();
+
+      // Add quote to user's favoriteQuotes
+      const user: any = await User.findById(req.user?._id);
+      user.favoriteQuotes.push(id);
+      await user.save();
+
+      res.status(200).json({
+        success: true,
+        message: "Quote added to favorites",
       });
     }
-
-    // Add user's ID to the list of favorites
-    quote.favorites.push(req.user?._id);
-    await quote.save();
-
-    res.status(200).json({
-      success: true,
-      message: "Quote added to favorites successfully",
-    });
   } catch (error) {
     console.error(error);
     res.status(500).json({
@@ -211,6 +242,7 @@ const addToFavorite = asyncHandler(async (req: Request, res: Response) => {
   }
 });
 
+
 export {
   getQuotes,
   getQuoteById,
@@ -218,5 +250,5 @@ export {
   updateQuote,
   deleteQuote,
   likeQuote,
-  addToFavorite
+  addToFavorite,
 };
