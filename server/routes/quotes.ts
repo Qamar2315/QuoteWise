@@ -16,10 +16,11 @@ import {
 
 const router = express.Router();
 
-router.route("/").get(getQuotes).post(isLogin, validateQuote, addQuote);
+router.route("/")
+  .get(getQuotes)
+  .post(isLogin, validateQuote, addQuote);
 
-router
-  .route("/:id")
+router.route("/:id")
   .get(getQuoteById)
   .put(isLogin, validateQuote, isQuoteAuthor, updateQuote)
   .delete(isLogin, isQuoteAuthor, deleteQuote);
@@ -29,11 +30,5 @@ router.route("/:id/like")
 
 router.route("/:id/favorite")
   .post(isLogin, addToFavorite)
-
-// router.route('/:id/comments')
-//     .post(isLogin, validateComment, addComment);
-
-// router.route('/:id/comments/:cId')
-//     .delete(isLogin, isCommentAuthor, deleteComment);
 
 export default router;
