@@ -10,19 +10,25 @@ import {
   getQuoteById,
   updateQuote,
   deleteQuote,
+  likeQuote,
+  addToFavorite
 } from "../controllers/quotes";
 
 const router = express.Router();
 
-router.route("/")
-    .get(getQuotes)
-    .post(isLogin, validateQuote, addQuote);
+router.route("/").get(getQuotes).post(isLogin, validateQuote, addQuote);
 
 router
   .route("/:id")
   .get(getQuoteById)
   .put(isLogin, validateQuote, isQuoteAuthor, updateQuote)
   .delete(isLogin, isQuoteAuthor, deleteQuote);
+
+router.route("/:id/like")
+  .post(isLogin, likeQuote)
+
+router.route("/:id/favorite")
+  .post(isLogin, addToFavorite)
 
 // router.route('/:id/comments')
 //     .post(isLogin, validateComment, addComment);
