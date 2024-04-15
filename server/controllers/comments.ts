@@ -1,12 +1,12 @@
 import asyncHandler from "../utilities/CatchAsync";
 import Comment from "../models/Comment";
 import Quote from "../models/Quote";
-import AppError from "../utilities/AppError";
 import { Request, Response } from "express";
 
+// Add a comment
 const addComment = asyncHandler(async (req: Request, res: Response) => {
   const { qId } = req.params; // Get quote ID from request parameters
-  const { content } = req.body;
+  const { content } = req.body; // Get content from request body
 
   try {
     // Check if the quote with the given ID exists
@@ -32,6 +32,7 @@ const addComment = asyncHandler(async (req: Request, res: Response) => {
     quote.comments.push(savedComment._id);
     await quote.save();
 
+    // Send response
     res.status(201).json({
       success: true,
       message: "Comment added successfully",
@@ -43,6 +44,7 @@ const addComment = asyncHandler(async (req: Request, res: Response) => {
   }
 });
 
+// Delete a comment
 const deleteComment = asyncHandler(async (req: Request, res: Response) => {
   const { id } = req.params; // Get comment ID from request parameters
 
@@ -71,7 +73,7 @@ const deleteComment = asyncHandler(async (req: Request, res: Response) => {
 
     // Delete the comment
     await Comment.findByIdAndDelete(id);
-
+    // Send response
     res.status(200).json({
       success: true,
       message: "Comment deleted successfully",
@@ -82,6 +84,7 @@ const deleteComment = asyncHandler(async (req: Request, res: Response) => {
   }
 });
 
+// Get all comments for a quote
 const getComments = asyncHandler(async (req: Request, res: Response) => {
   const { qId } = req.params; // Get quote ID from request parameters
 
