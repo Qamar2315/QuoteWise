@@ -16,7 +16,7 @@ client/.classpath
 client/.c9/
 client/*.launch
 client/.settings/
-client/.sublime-workspace
+client/.sublime-workspaces
 
 # Visual Studio Code
 client/.vscode/*
@@ -33,6 +33,7 @@ client/coverage
 client/libpeerconnection.log
 client/testem.log
 client/typings
+
 
 # System files
 client/.DS_Store
