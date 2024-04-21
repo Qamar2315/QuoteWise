@@ -17,11 +17,11 @@
 
 .logo {
   width: 150px;
-  margin-bottom: 20px;
 }
 
 .form-group {
   margin-bottom: 20px;
+  text-align: left;
 }
 
 .form-group label {
@@ -69,7 +69,7 @@ p a:hover {
 
 .error-message {
   margin-top: 5px;
-  color: #000000;
+  color: #ffff;
   font-size: 12px;
   text-align: left;
 }
