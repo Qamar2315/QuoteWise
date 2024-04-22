@@ -168,3 +168,7 @@ client/typings
 # System files
 client/.DS_Store
 client/Thumbs.db
+
+# environment variables
+client/environment.dev.ts
+client/.editorconfig
