@@ -1,5 +1,8 @@
 <div class="container">
   <h2>Quotes</h2>
+  @if(quotes.length === 0){
+  <p>No quotes found.</p>
+  }@else {
   <div>
     @for(quote of quotes; track quote._id){
     <a [routerLink]="['/quote', quote._id]">
@@ -23,4 +26,5 @@
     </a>
     }
   </div>
+  }
 </div>

@@ -40,18 +40,20 @@ export class CreateQuoteComponent {
   }
   uploadQuote() {
     const token = this.authService.getUser()?.token as string;
-    this.quoteService.uploadQuote(this.quote, token, this.userPrompt).subscribe({
-      next: (res: any) => {
-        if(res.success){
-          alert('Quote uploaded successfully');
-          this.router.navigate(['/']);
-        }else{
-          alert(res.message);
-        }
-      },
-      error: (err: any) => {
-        alert('Failed to upload quote');
-      }
-    });
+    this.quoteService
+      .uploadQuote(this.quote, token, this.userPrompt)
+      .subscribe({
+        next: (res: any) => {
+          if (res.success) {
+            alert('Quote uploaded successfully');
+            this.router.navigate(['/']);
+          } else {
+            alert(res.message);
+          }
+        },
+        error: (err: any) => {
+          alert('Failed to upload quote');
+        },
+      });
   }
 }

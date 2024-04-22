@@ -28,4 +28,7 @@ export class QuoteService {
       { headers }
     );
   }
+  getAllQuotes() {
+    return this.http.get(`${this.apiUrl}/api/quotes`);
+  }
 }
