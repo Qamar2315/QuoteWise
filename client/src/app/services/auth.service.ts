@@ -17,13 +17,17 @@ export class AuthService {
   }
 
   private getUserFromLocalStorage() {
-    const id = localStorage.getItem('id');
-    const token = localStorage.getItem('token');
-    const username = localStorage.getItem('name');
-    if (id && token && username) {
-      return { id, token, username };
-    } else {
+    if (typeof localStorage === 'undefined') {
       return null;
+    } else {
+      const id = localStorage.getItem('id');
+      const token = localStorage.getItem('token');
+      const username = localStorage.getItem('name');
+      if (id && token && username) {
+        return { id, token, username };
+      } else {
+        return null;
+      }
     }
   }
 
@@ -47,12 +51,16 @@ export class AuthService {
       .then((data) => {
         if (data.success) {
           if (data.data.token && data.data._id && data.data.username) {
-            localStorage.setItem('id', data.data._id);
-            localStorage.setItem('token', data.data.token);
-            localStorage.setItem('name', data.data.username);
-            this.user = data.data;
-            alert(data.message);
-            this.router.navigate(['/']);
+            if (localStorage === undefined) {
+              return;
+            } else {
+              localStorage.setItem('id', data.data._id);
+              localStorage.setItem('token', data.data.token);
+              localStorage.setItem('name', data.data.username);
+              this.user = data.data;
+              alert(data.message);
+              this.router.navigate(['/']);
+            }
           }
         } else {
           alert(data.message);

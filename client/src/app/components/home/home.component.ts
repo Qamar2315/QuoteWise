@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -9,6 +10,9 @@ import { Component } from '@angular/core';
   styleUrl: './home.component.css',
 })
 export class HomeComponent {
+  constructor(private authService: AuthService) {
+    console.log(authService.getUser());
+  }
   quotes = [
     {
       _id: '6610463a14318f5cad53d77f',
