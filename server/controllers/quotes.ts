@@ -253,7 +253,7 @@ const generateQuote = asyncHandler(async (req: Request, res: Response) => {
     const updatedPrompt: string =
       "Generate a quote of maximum 25 words based on below prompt: " +
       userPrompt +
-      "Ouput should be only quote";
+      "Ouput should be only quote no quotation marks or author name";
     const result = await model.generateContent(updatedPrompt);
     const response = result.response;
     const text = response.text();
