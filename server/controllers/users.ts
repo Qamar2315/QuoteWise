@@ -31,7 +31,6 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
       success: true,
       message: "User registered sucessfully",
       user: {
-        username: userAccount.username,
         email: userAccount.email,
       },
     });
@@ -54,7 +53,6 @@ const loginUser = asyncHandler(async (req: Request, res: Response) => {
         data: {
           _id: userAccount._id,
           username: userAccount.username,
-          email: userAccount.email,
           token: generateToken({
             _id: userAccount._id,
             username: userAccount.username,
