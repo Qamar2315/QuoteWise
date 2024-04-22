@@ -11,6 +11,9 @@ import { AuthService } from '../../services/auth.service';
 })
 export class NavbarComponent {
   constructor(private authService: AuthService) {}
+  getUserName(): string | undefined {
+    return this.authService.getUser()?.username;
+  }
   logout(): void {
     this.authService.logout();
   }
