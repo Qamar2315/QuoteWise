@@ -13,6 +13,6 @@ import { AuthService } from '../../services/auth.service';
 export class LoginComponent {
   constructor(private authService: AuthService) {}
   login(loginForm: NgForm) {
-    console.log(loginForm.value);
+    this.authService.login(loginForm.value);
   }
 }
