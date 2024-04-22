@@ -3,6 +3,9 @@ import Quote from "../models/Quote";
 import User from "../models/User";
 import AppError from "../utilities/AppError";
 import { Request, Response } from "express";
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import * as dotenv from "dotenv";
+dotenv.config(); // Load environment variables from .env file
 
 const getQuotes = asyncHandler(async (req: Request, res: Response) => {
   // Fetch all quotes from the database
@@ -242,6 +245,28 @@ const addToFavorite = asyncHandler(async (req: Request, res: Response) => {
   }
 });
 
+const generateQuote = asyncHandler(async (req: Request, res: Response) => {
+  const genAI = new GoogleGenerativeAI(process.env.GEN_API as string);
+  const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+  try {
+    const { userPrompt } = req.body;
+    const updatedPrompt: string =
+      "Generate a quote of maximum 25 words based on below prompt: " +
+      userPrompt +
+      "Ouput should be only quote";
+    const result = await model.generateContent(updatedPrompt);
+    const response = result.response;
+    const text = response.text();
+    res.status(200).json({
+      success: true,
+      message: "Quote generated successfully",
+      data: text,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
 
 export {
   getQuotes,
@@ -251,4 +276,5 @@ export {
   deleteQuote,
   likeQuote,
   addToFavorite,
+  generateQuote,
 };

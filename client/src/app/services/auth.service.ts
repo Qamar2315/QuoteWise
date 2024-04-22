@@ -8,7 +8,6 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
   apiUrl = environment.apiUrl;
-  apiKey = environment.apiKey;
   private user: User | null = this.getUserFromLocalStorage();
   constructor(private router: Router) {}
 

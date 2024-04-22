@@ -1,9 +1,7 @@
 import express from "express";
-// import { getQuotes, getQuoteById, addQuote, updateQuote, deleteQuote } from '../controllers/quotes';
-// import { addComment, deleteComment } from '../controllers/comments';
 import { isLogin } from "../middlwares/isLogin";
-import { isQuoteAuthor, isCommentAuthor } from "../middlwares/authorization";
-import { validateQuote } from "../middlwares/schemaValidator";
+import { isQuoteAuthor } from "../middlwares/authorization";
+import { validateGenerate, validateQuote } from "../middlwares/schemaValidator";
 import {
   getQuotes,
   addQuote,
@@ -11,7 +9,8 @@ import {
   updateQuote,
   deleteQuote,
   likeQuote,
-  addToFavorite
+  addToFavorite,
+  generateQuote,
 } from "../controllers/quotes";
 
 const router = express.Router();
@@ -19,6 +18,9 @@ const router = express.Router();
 router.route("/")
   .get(getQuotes)
   .post(isLogin, validateQuote, addQuote);
+
+router.route("/generate")
+  .post(isLogin,validateGenerate, generateQuote);
 
 router.route("/:id")
   .get(getQuoteById)
