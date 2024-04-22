@@ -1,3 +1,7 @@
+a{
+  text-decoration: none;
+  color: #fff;
+}
 .navbar {
   background-color: #001634;
   color: #fff;
@@ -16,7 +20,7 @@
 }
 
 .logo {
-  width: 30px;
+  width: 50px;
   margin-right: 10px;
 }
 
