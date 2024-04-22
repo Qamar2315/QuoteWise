@@ -2,16 +2,25 @@
   <h2>Quotes</h2>
   <div>
     @for(quote of quotes; track quote._id){
-    <div class="quote-card">
-      <p>{{ quote.content }}</p>
-      <p>Author: {{ quote.author }}</p>
-      <p>User Prompt: {{ quote.userPrompt }}</p>
-      <div class="actions">
-        <span class="action">Likes: {{ quote.likes.length }}</span>
-        <span class="action">Comments: {{ quote.comments.length }}</span>
-        <span class="action">Favorites: {{ quote.favorites.length }}</span>
+    <a [routerLink]="['/quote', quote._id]">
+      <div class="quote-card">
+        <p class="quote">{{ quote.content }}</p>
+        <p class="user-prompt">User Prompt: {{ quote.userPrompt }}</p>
+        <div class="actions">
+          <button class="action like-button">
+            Like <span class="like-count">{{ quote.likes.length }}</span>
+          </button>
+          <button class="action comment-button">
+            Comments
+            <span class="comment-count">{{ quote.comments.length }}</span>
+          </button>
+          <button class="action favorite-button">
+            Add to Favorites
+            <span class="favorite-count">{{ quote.favorites.length }}</span>
+          </button>
+        </div>
       </div>
-    </div>
+    </a>
     }
   </div>
 </div>
