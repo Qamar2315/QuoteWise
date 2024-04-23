@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="quote-container">
+    <p class="quote">{{ quote.content }}</p>
+    <p class="user-prompt">User Prompt: {{ quote.userPrompt }}</p>
+    <p class="author">Author: {{ quote.author }}</p>
+    <div class="actions">
+      <button class="action-button" (click)="likeQuote()">Like</button>
+      <button class="action-button" (click)="addToFavorites()">
+        Add to Favorites
+      </button>
+    </div>
+  </div>
+  <div class="comments-container">
+    <h3>Comments</h3>
+    @for(comment of comments; track comment._id){
+        <div class="comment">
+          <p>{{ comment.content }}</p>
+          <p>Posted by: {{ comment.user }}</p>
+        </div>
+    }
+  </div>
+  <div class="add-comment">
+    <textarea
+      class="comment-input"
+      [(ngModel)]="newComment"
+      placeholder="Add a comment..."
+    ></textarea>
+    <button class="add-comment-button" (click)="addComment()">
+      Add Comment
+    </button>
+  </div>
+</div>
