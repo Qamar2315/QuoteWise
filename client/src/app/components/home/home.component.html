@@ -5,7 +5,7 @@
   }@else {
   <div>
     @for(quote of quotes; track quote._id){
-    <a [routerLink]="['/quote', quote._id]">
+    <a [routerLink]="['/quotes', quote._id]">
       <div class="quote-card">
         <p class="quote">{{ quote.content }}</p>
         <p class="user-prompt">User Prompt: {{ quote.userPrompt }}</p>

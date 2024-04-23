@@ -5,13 +5,24 @@ import { NotfoundComponent } from './components/notfound/notfound.component';
 import { AboutusComponent } from './components/aboutus/aboutus.component';
 import { HomeComponent } from './components/home/home.component';
 import { CreateQuoteComponent } from './components/create-quote/create-quote.component';
+import { authGuard } from './auth.guard';
+import { ViewQuoteComponent } from './components/view-quote/view-quote.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'not-found', component: NotfoundComponent },
-  { path: 'create-quote', component: CreateQuoteComponent },
+  {
+    path: 'create-quote',
+    component: CreateQuoteComponent,
+    canActivate: [authGuard],
+  },
   { path: 'about', component: AboutusComponent },
+  {
+    path: 'quotes/:id',
+    component: ViewQuoteComponent,
+    canActivate: [authGuard],
+  },
   { path: '', component: HomeComponent },
   { path: '**', redirectTo: 'not-found' },
 ];
