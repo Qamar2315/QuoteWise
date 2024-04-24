@@ -5,26 +5,31 @@
   }@else {
   <div>
     @for(quote of quotes; track quote._id){
-    <a [routerLink]="['/quotes', quote._id]">
-      <div class="quote-card">
-        <p class="quote">{{ quote.content }}</p>
-        <p class="user-prompt">User Prompt: {{ quote.userPrompt }}</p>
-        <div class="actions">
-          <button class="action like-button">
-            <fa-icon [icon]="heartIcon"></fa-icon>
-            {{ quote.likes.length }}
-          </button>
-          <button class="action comment-button">
-            <fa-icon [icon]="commentIcon"></fa-icon>
-            {{ quote.comments.length }}
-          </button>
-          <button class="action favorite-button">
-            <fa-icon [icon]="bookmarkIcon"></fa-icon>
-            {{ quote.favorites.length }}
-          </button>
+    <div class="quote-card">
+      <a [routerLink]="['/quotes', quote._id]">
+        <div>
+          <p class="quote">{{ quote.content }}</p>
+          <p class="user-prompt">User Prompt: {{ quote.userPrompt }}</p>
         </div>
+      </a>
+      @if(isLogin()){
+      <div class="actions" >
+        <button (click)="likePost(quote._id)" [className]="isLiked(quote)" class="action like-button">
+          <fa-icon [icon]="heartIcon"></fa-icon>
+          {{ quote.likes.length }}
+        </button>
+        <button class="action comment-button">
+          <fa-icon [icon]="commentIcon"></fa-icon>
+          {{ quote.comments.length }}
+        </button>
+        <button (click)="addToFavorite(quote._id)" class="action favorite-button" [className]="isFavourited(quote)">
+          <fa-icon [icon]="bookmarkIcon"></fa-icon>
+          {{ quote.favorites.length }}
+        </button>
       </div>
-    </a>
+
+      }
+    </div>
     }
   </div>
   }

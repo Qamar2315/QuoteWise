@@ -31,4 +31,13 @@ export class QuoteService {
   getAllQuotes() {
     return this.http.get(`${this.apiUrl}/api/quotes`);
   }
+  likeQuote(quoteId: string, token: string) {
+    // console.log('Liked Quote');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.post(`${this.apiUrl}/api/quotes/${quoteId}/like`, {}, {headers});
+  }
+  addToFavorite(quoteId: string, token: string) {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.post(`${this.apiUrl}/api/quotes/${quoteId}/favorite`, {}, {headers});
+  }
 }
