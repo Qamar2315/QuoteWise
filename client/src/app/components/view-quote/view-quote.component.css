@@ -2,14 +2,15 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center; /* Center content vertically */
-  height: 100vh; /* Set container height to cover entire screen */
+  /* justify-content: center; */
+  height: 100vh;
   padding: 20px;
   background-color: #00224d;
   color: #fff;
 }
 
 .quote-container {
+  margin-top: 30px;
   margin-bottom: 20px;
   padding: 20px;
   background-color: #ff204e;
@@ -33,21 +34,38 @@
 }
 
 .actions {
+  display: flex;
+  justify-content: space-around;
   margin-top: 20px;
 }
 
-.action-button {
+.like-button,
+.favorite-button {
   background-color: #5d0e41;
   color: #fff;
-  padding: 8px 16px;
   border: none;
+  padding: 8px 16px;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s;
-  margin-right: 10px;
 }
 
-.action-button:hover {
+.liked-button,
+.favorited-button {
+  background-color: #3d062b;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.favorite-button:hover {
+  background-color: #a0153e;
+}
+
+.like-button:hover {
   background-color: #a0153e;
 }
 

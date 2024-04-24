@@ -40,4 +40,7 @@ export class QuoteService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.post(`${this.apiUrl}/api/quotes/${quoteId}/favorite`, {}, {headers});
   }
+  getQuote(id: string) {
+    return this.http.get(`${this.apiUrl}/api/quotes/${id}`);
+  }
 }

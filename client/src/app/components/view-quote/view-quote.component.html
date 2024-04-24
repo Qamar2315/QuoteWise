@@ -2,13 +2,13 @@
   <div class="quote-container">
     <p class="quote">{{ quote.content }}</p>
     <p class="user-prompt">User Prompt: {{ quote.userPrompt }}</p>
-    <p class="author">Author: {{ quote.author }}</p>
+    <p class="author">Author: {{ quote.author.username }}</p>
     <div class="actions">
-      <button class="action-button" (click)="likeQuote()">
+      <button (click)="likePost(quote._id)" [className]="isLiked(quote)">
         <fa-icon [icon]="heartIcon" ></fa-icon>
         {{ quote.likes.length }}
       </button>
-      <button class="action-button" (click)="addToFavorites()">
+      <button (click)="addToFavorite(quote._id)" [className]="isFavourited(quote)">
         <fa-icon [icon]="bookmarkIcon"></fa-icon>
         {{ quote.favorites.length }}
       </button>

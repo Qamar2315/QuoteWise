@@ -102,6 +102,5 @@ export class HomeComponent {
     }else{
       return "favorite-button";
     }
-
   }
 }
