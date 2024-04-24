@@ -25,7 +25,7 @@ const getQuoteById = asyncHandler(async (req: Request, res: Response) => {
   const { id } = req.params; // Get quote ID from request parameters
 
   // Fetch the quote from the database using the ID
-  const quote = await Quote.findById(id).populate("user", "username email");
+  const quote = await Quote.findById(id).populate("author", "username email",);
 
   if (!quote) {
     return res.status(404).json({
