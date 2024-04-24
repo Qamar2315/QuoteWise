@@ -11,15 +11,16 @@
         <p class="user-prompt">User Prompt: {{ quote.userPrompt }}</p>
         <div class="actions">
           <button class="action like-button">
-            Like <span class="like-count">{{ quote.likes.length }}</span>
+            <fa-icon [icon]="heartIcon"></fa-icon>
+            {{ quote.likes.length }}
           </button>
           <button class="action comment-button">
-            Comments
-            <span class="comment-count">{{ quote.comments.length }}</span>
+            <fa-icon [icon]="commentIcon"></fa-icon>
+            {{ quote.comments.length }}
           </button>
           <button class="action favorite-button">
-            Add to Favorites
-            <span class="favorite-count">{{ quote.favorites.length }}</span>
+            <fa-icon [icon]="bookmarkIcon"></fa-icon>
+            {{ quote.favorites.length }}
           </button>
         </div>
       </div>

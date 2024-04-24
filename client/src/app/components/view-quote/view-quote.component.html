@@ -4,19 +4,23 @@
     <p class="user-prompt">User Prompt: {{ quote.userPrompt }}</p>
     <p class="author">Author: {{ quote.author }}</p>
     <div class="actions">
-      <button class="action-button" (click)="likeQuote()">Like</button>
+      <button class="action-button" (click)="likeQuote()">
+        <fa-icon [icon]="heartIcon" ></fa-icon>
+        {{ quote.likes.length }}
+      </button>
       <button class="action-button" (click)="addToFavorites()">
-        Add to Favorites
+        <fa-icon [icon]="bookmarkIcon"></fa-icon>
+        {{ quote.favorites.length }}
       </button>
     </div>
   </div>
   <div class="comments-container">
     <h3>Comments</h3>
     @for(comment of comments; track comment._id){
-        <div class="comment">
-          <p>{{ comment.content }}</p>
-          <p>Posted by: {{ comment.user }}</p>
-        </div>
+    <div class="comment">
+      <p>{{ comment.content }}</p>
+      <p>Posted by: {{ comment.user }}</p>
+    </div>
     }
   </div>
   <div class="add-comment">

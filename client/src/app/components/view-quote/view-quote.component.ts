@@ -2,15 +2,24 @@ import { Component } from '@angular/core';
 import { CommentType } from '../../types/comment.type';
 import { QuoteType } from '../../types/quote.type';
 import { FormsModule } from '@angular/forms';
+import {
+  faBookmark,
+  faHeart,
+  faComment
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @Component({
   selector: 'app-view-quote',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, FontAwesomeModule],
   templateUrl: './view-quote.component.html',
-  styleUrl: './view-quote.component.css'
+  styleUrl: './view-quote.component.css',
 })
 export class ViewQuoteComponent {
+  commentIcon = faComment;
+  heartIcon = faHeart;
+  bookmarkIcon = faBookmark;
   newComment: string = '';
   quote: QuoteType = {
     _id: '1',
@@ -31,5 +40,4 @@ export class ViewQuoteComponent {
   likeQuote() {}
   addToFavorites() {}
   addComment() {}
-
 }
