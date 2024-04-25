@@ -27,7 +27,7 @@ const addComment = asyncHandler(async (req: Request, res: Response) => {
 
     // Save the new comment
     const savedComment = await newComment.save();
-
+    await savedComment.populate("user", "username");
     // Update the comments array field in the Quote model
     quote.comments.push(savedComment._id);
     await quote.save();
@@ -90,8 +90,8 @@ const getComments = asyncHandler(async (req: Request, res: Response) => {
 
   try {
     // Find all comments for the quote with the given ID
-    const comments = await Comment.find({ quote: qId });
-
+    const comments = await Comment.find({ quote: qId }).populate("user", "username");
+    
     res.status(200).json({
       success: true,
       data: comments,
