@@ -7,13 +7,13 @@
         <label>Name</label>
         <input
           type="text"
-          id="name"
+          id="username"
           ngModel
-          name="name"
-          #name="ngModel"
+          name="username"
+          #username="ngModel"
           required
         />
-        <div class="error-message" [hidden]="name.valid || name.untouched">
+        <div class="error-message" [hidden]="username.valid || username.untouched">
           Name is required
         </div>
       </div>

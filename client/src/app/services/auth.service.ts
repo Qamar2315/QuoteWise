@@ -66,6 +66,24 @@ export class AuthService {
         }
       });
   }
+  signup(data: { username: string; email: string; password: string }) {
+    fetch(`${this.apiUrl}/api/users/signup`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          alert(data.message);
+          this.router.navigate(['/login']);
+        } else {
+          alert(data.message);
+        }
+      });
+  }
 
   logout() {
     localStorage.removeItem('id');
