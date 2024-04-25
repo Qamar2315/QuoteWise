@@ -5,12 +5,13 @@ import { FormsModule } from '@angular/forms';
 import {
   faBookmark,
   faHeart,
-  faComment,
+  faComment
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { QuoteService } from '../../services/quote.service';
+import { CommentService } from '../../services/comment.service';
 
 @Component({
   selector: 'app-view-quote',
@@ -23,7 +24,8 @@ export class ViewQuoteComponent {
   constructor(
     private router: ActivatedRoute,
     private authService: AuthService,
-    private quoteService: QuoteService
+    private quoteService: QuoteService,
+    private commentService: CommentService
   ) {}
   commentIcon = faComment;
   heartIcon = faHeart;
@@ -50,12 +52,30 @@ export class ViewQuoteComponent {
     this.quoteService.getQuote(id).subscribe((res: any) => {
       if (res.success) {
         this.quote = res.data;
-        this.comments = res.data.comments;
+      }
+    });
+    const token = this.authService.getUser()?.token as string;
+    this.commentService.getComments(id,token).subscribe((res: any) => {
+      if (res.success) {
+        this.comments = res.data;
       }
     });
   }
 
-  addComment() {}
+  addComment() {
+    if (this.newComment === '') {
+      alert('Comment cannot be empty')
+      return;
+    }
+    this.commentService
+      .addComment(this.quote._id, this.newComment, this.authService.getUser()?.token as string)
+      .subscribe((res: any) => {
+        if (res.success) {
+          this.comments.push(res.data);
+          this.newComment = '';
+        }
+      });
+  }
 
   isFavourited(quote: QuoteType) {
     if (quote.favorites.includes(this.authService.getUser()?.id as string)) {
@@ -77,8 +97,6 @@ export class ViewQuoteComponent {
     this.quoteService
       .likeQuote(id, this.authService.getUser()?.token as string)
       .subscribe((res: any) => {
-        console.log(res);
-
         if (res.success) {
           if (res.message === 'Quote liked successfully') {
             this.quote.likes.push(this.authService.getUser()?.id as string);
@@ -95,8 +113,6 @@ export class ViewQuoteComponent {
     this.quoteService
       .addToFavorite(id, this.authService.getUser()?.token as string)
       .subscribe((res: any) => {
-        console.log(res);
-
         if (res.success) {
           if (res.message === 'Quote added to favorites') {
             this.quote.favorites.push(this.authService.getUser()?.id as string);
@@ -107,5 +123,20 @@ export class ViewQuoteComponent {
           }
         }
       });
+  }
+  isCommentAuthor(id:string){
+    if(id===this.authService.getUser()?.id){
+      return true;
+    }else{
+      return false;
+    }
+  }
+  deleteComment(id:string){
+    this.commentService.deleteComment(id,this.authService.getUser()?.token as string).subscribe((res:any)=>{
+      if(res.success){
+        this.comments=this.comments.filter(comment=>comment._id!==id);
+        alert(res.message);
+      }
+    })
   }
 }

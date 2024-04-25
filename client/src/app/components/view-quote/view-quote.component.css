@@ -77,6 +77,7 @@
 }
 
 .comment {
+  position: relative;
   background-color: #ff204e;
   padding: 10px;
   margin-bottom: 10px;
@@ -85,6 +86,23 @@
 
 .comment p {
   margin: 0;
+}
+
+.delete-comment-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: #5d0e41;
+  color: #fff;
+  padding: 4px 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.delete-comment-button:hover {
+  background-color: #a0153e;
 }
 
 .add-comment {
