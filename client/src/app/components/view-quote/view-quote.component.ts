@@ -5,10 +5,10 @@ import { FormsModule } from '@angular/forms';
 import {
   faBookmark,
   faHeart,
-  faComment
+  faComment,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { QuoteService } from '../../services/quote.service';
 import { CommentService } from '../../services/comment.service';
@@ -16,7 +16,7 @@ import { CommentService } from '../../services/comment.service';
 @Component({
   selector: 'app-view-quote',
   standalone: true,
-  imports: [FormsModule, FontAwesomeModule],
+  imports: [FormsModule, FontAwesomeModule, RouterLink],
   templateUrl: './view-quote.component.html',
   styleUrl: './view-quote.component.css',
 })
@@ -55,7 +55,7 @@ export class ViewQuoteComponent {
       }
     });
     const token = this.authService.getUser()?.token as string;
-    this.commentService.getComments(id,token).subscribe((res: any) => {
+    this.commentService.getComments(id, token).subscribe((res: any) => {
       if (res.success) {
         this.comments = res.data;
       }
@@ -64,11 +64,15 @@ export class ViewQuoteComponent {
 
   addComment() {
     if (this.newComment === '') {
-      alert('Comment cannot be empty')
+      alert('Comment cannot be empty');
       return;
     }
     this.commentService
-      .addComment(this.quote._id, this.newComment, this.authService.getUser()?.token as string)
+      .addComment(
+        this.quote._id,
+        this.newComment,
+        this.authService.getUser()?.token as string
+      )
       .subscribe((res: any) => {
         if (res.success) {
           this.comments.push(res.data);
@@ -84,7 +88,7 @@ export class ViewQuoteComponent {
       return 'favorite-button';
     }
   }
-  
+
   isLiked(quote: QuoteType) {
     if (quote.likes.includes(this.authService.getUser()?.id as string)) {
       return 'liked-button';
@@ -124,19 +128,21 @@ export class ViewQuoteComponent {
         }
       });
   }
-  isCommentAuthor(id:string){
-    if(id===this.authService.getUser()?.id){
+  isCommentAuthor(id: string) {
+    if (id === this.authService.getUser()?.id) {
       return true;
-    }else{
+    } else {
       return false;
     }
   }
-  deleteComment(id:string){
-    this.commentService.deleteComment(id,this.authService.getUser()?.token as string).subscribe((res:any)=>{
-      if(res.success){
-        this.comments=this.comments.filter(comment=>comment._id!==id);
-        alert(res.message);
-      }
-    })
+  deleteComment(id: string) {
+    this.commentService
+      .deleteComment(id, this.authService.getUser()?.token as string)
+      .subscribe((res: any) => {
+        if (res.success) {
+          this.comments = this.comments.filter((comment) => comment._id !== id);
+          alert(res.message);
+        }
+      });
   }
 }

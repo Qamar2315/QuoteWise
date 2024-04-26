@@ -14,6 +14,9 @@ export class NavbarComponent {
   getUserName(): string | undefined {
     return this.authService.getUser()?.username;
   }
+  getID(): string | undefined {
+    return this.authService.getUser()?.id;
+  }
   logout(): void {
     this.authService.logout();
   }

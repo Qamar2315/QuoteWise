@@ -7,11 +7,18 @@ import { HomeComponent } from './components/home/home.component';
 import { CreateQuoteComponent } from './components/create-quote/create-quote.component';
 import { authGuard } from './auth.guard';
 import { ViewQuoteComponent } from './components/view-quote/view-quote.component';
+import { ViewProfileComponent } from './components/view-profile/view-profile.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'not-found', component: NotfoundComponent },
+  { path: 'about-us', component: AboutusComponent },
+  {
+    path: 'view-profile/:id',
+    component: ViewProfileComponent,
+    canActivate: [authGuard],
+  },
   {
     path: 'create-quote',
     component: CreateQuoteComponent,
