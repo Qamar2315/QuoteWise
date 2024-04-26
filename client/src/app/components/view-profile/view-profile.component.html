@@ -1,0 +1,50 @@
+<div class="container">
+  <h2>Profile</h2>
+  <div class="profile-info">
+    <p><strong>Username:</strong> {{ 'Qamar' }}</p>
+    <p><strong>Email:</strong> {{ 'pass' }}</p>
+  </div>
+  <div class="profile-actions">
+    <button class="edit-profile-button">Edit Profile</button>
+    <button class="change-password-button">Change Password</button>
+  </div>
+  <div class="toggle-buttons">
+    <input
+      type="radio"
+      id="userQuotes"
+      name="profileSection"
+      value="userQuotes"
+      #selectedSection
+      [(ngModel)]="selectedSection"
+    />
+    <label for="userQuotes">User Quotes</label>
+    <input
+      type="radio"
+      id="likedQuotes"
+      name="profileSection"
+      value="likedQuotes"
+      #selectedSection
+      [(ngModel)]="selectedSection"
+    />
+    <label for="likedQuotes">Liked Quotes</label>
+    <input
+      type="radio"
+      id="favoriteQuotes"
+      name="profileSection"
+      value="favoriteQuotes"
+      #selectedSection
+      [(ngModel)]="selectedSection"
+    />
+    <label for="favoriteQuotes">Favorite Quotes</label>
+  </div>
+
+  <div class="quote-list" *ngIf="selectedSection.value === 'userQuotes'">
+    <!-- Render user quotes here -->
+  </div>
+  <div class="quote-list" *ngIf="selectedSection.value === 'likedQuotes'">
+    <!-- Render liked quotes here -->
+  </div>
+  <div class="quote-list" *ngIf="selectedSection.value === 'favoriteQuotes'">
+    <!-- Render favorite quotes here -->
+  </div>
+</div>
