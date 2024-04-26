@@ -57,10 +57,11 @@ const addQuote = asyncHandler(async (req: Request, res: Response) => {
       userPrompt,
       author: req.user?._id,
     });
-
     // Save the new quote
     const savedQuote = await newQuote.save();
-
+    let user: any = await User.findById(req.user?._id);
+    user.quotes.push(savedQuote._id);
+    await user.save();
     res.status(201).json({
       success: true,
       message: "Quote added successfully",

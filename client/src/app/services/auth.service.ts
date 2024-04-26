@@ -85,6 +85,14 @@ export class AuthService {
       });
   }
 
+  getUserById(id: string) {
+    return fetch(`${this.apiUrl}/api/users/${id}`, {
+      headers: {
+        Authorization: `Bearer ${this.user?.token}`,
+      },
+    })
+  }
+
   logout() {
     localStorage.removeItem('id');
     localStorage.removeItem('token');

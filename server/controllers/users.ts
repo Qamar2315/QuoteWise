@@ -29,7 +29,7 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
   if (userAccount) {
     return res.status(200).json({
       success: true,
-      message: "User registered sucessfully"
+      message: "User registered sucessfully",
     });
   } else {
     return res.status(500).json({
@@ -138,13 +138,14 @@ const changePassword = asyncHandler(async (req: Request, res: Response) => {
 const getProfile = asyncHandler(async (req: Request, res: Response) => {
   const userId: string = req.params.userId;
   // Check if the user with the given ID exists
-  const user: UserModel | null = await User.findById(userId).populate(
-    "quotes"
-  );
+  const user: UserModel | null = await User.findById(userId)
+    .select("-password")
+    .populate("quotes")
+    .populate("likedQuotes")
+    .populate("favoriteQuotes");
   if (!user) {
     throw new AppError("User not found", 404);
   }
-  console.log(user);
   // Return user's profile details (email and name)
   res.status(200).json({
     success: true,

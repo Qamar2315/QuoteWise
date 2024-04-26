@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environment.dev';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { AuthService } from './auth.service';
-import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -42,5 +40,9 @@ export class QuoteService {
   }
   getQuote(id: string) {
     return this.http.get(`${this.apiUrl}/api/quotes/${id}`);
+  }
+  deleteQuote(id: string, token: string) {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.delete(`${this.apiUrl}/api/quotes/${id}`, { headers });
   }
 }
