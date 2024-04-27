@@ -6,8 +6,8 @@
   </div>
   @if(isProfileAuthor()){
   <div class="profile-actions">
-    <button class="edit-profile-button">Edit Profile</button>
-    <button class="change-password-button">Change Password</button>
+    <button routerLink="/view-profile/{{user._id}}/edit" class="edit-profile-button">Edit Profile</button>
+    <button routerLink="/view-profile/{{user._id}}/change-password" class="change-password-button">Change Password</button>
   </div>
   }
   <br>
