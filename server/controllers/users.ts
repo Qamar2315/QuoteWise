@@ -76,7 +76,6 @@ const loginUser = asyncHandler(async (req: Request, res: Response) => {
 const updateProfile = asyncHandler(async (req: Request, res: Response) => {
   const userId: string = req.params.userId;
   const { email, username } = req.body;
-
   if (!username || !email) {
     throw new AppError("Enter all the required fields", 201);
   }
