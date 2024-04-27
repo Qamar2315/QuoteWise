@@ -34,4 +34,4 @@ QuoteWise is a web application where users can generate quotes using the Gemeni 
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/Qamar2315/QuoteWise/blob/main/LICENSE) file for details.
