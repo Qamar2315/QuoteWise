@@ -8,9 +8,22 @@ import { CreateQuoteComponent } from './components/create-quote/create-quote.com
 import { authGuard } from './auth.guard';
 import { ViewQuoteComponent } from './components/view-quote/view-quote.component';
 import { ViewProfileComponent } from './components/view-profile/view-profile.component';
+import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { isauthorGuard } from './isauthor.guard';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
+  {
+    path: 'view-profile/:id/edit',
+    component: EditProfileComponent,
+    canActivate: [isauthorGuard],
+  },
+  {
+    path: 'view-profile/:id/change-password',
+    component: ChangePasswordComponent,
+    canActivate: [isauthorGuard],
+  },
   { path: 'signup', component: SignupComponent },
   { path: 'not-found', component: NotfoundComponent },
   { path: 'about-us', component: AboutusComponent },
