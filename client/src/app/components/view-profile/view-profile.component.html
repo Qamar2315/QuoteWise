@@ -4,10 +4,13 @@
     <p><strong>Username:</strong> {{ user.username }}</p>
     <p><strong>Email:</strong> {{ user.email }}</p>
   </div>
+  @if(isProfileAuthor()){
   <div class="profile-actions">
     <button class="edit-profile-button">Edit Profile</button>
     <button class="change-password-button">Change Password</button>
   </div>
+  }
+  <br>
   <div class="toggle-buttons">
     <input
       type="radio"
@@ -46,7 +49,9 @@
       </a>
       <!-- Add delete icon for user quotes -->
       @if(isQuoteAuthor(quote)){
-      <button (click)="deleteQuote(quote._id)" class="delete-icon">Delete</button>
+      <button (click)="deleteQuote(quote._id)" class="delete-icon">
+        Delete
+      </button>
       }
     </div>
   </div>
