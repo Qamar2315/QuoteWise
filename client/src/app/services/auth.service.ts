@@ -90,7 +90,7 @@ export class AuthService {
       headers: {
         Authorization: `Bearer ${this.user?.token}`,
       },
-    })
+    });
   }
 
   logout() {

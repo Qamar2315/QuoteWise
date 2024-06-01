@@ -10,8 +10,10 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
+
 export class LoginComponent {
   constructor(private authService: AuthService) {}
+  
   login(loginForm: NgForm) {
     this.authService.login(loginForm.value);
   }

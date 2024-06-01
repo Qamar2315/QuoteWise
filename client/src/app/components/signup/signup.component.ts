@@ -13,7 +13,6 @@ import { AuthService } from '../../services/auth.service';
 export class SignupComponent {
   constructor(private authService: AuthService) {}
   signup(signupForm: NgForm) {
-    console.log(signupForm.value);
     this.authService.signup(signupForm.value);
   }
 }

@@ -4,7 +4,7 @@
   "description": "server for my new angular app quote wise",
   "main": "y",
   "scripts": {
-    "dev": "nodemon --watch \"**\" --ext \"ts,json\" --ignore \"**/*.spec.ts\" --exec \"ts-node index.ts",
+    "start": "nodemon --watch \"**\" --ext \"ts,json\" --ignore \"**/*.spec.ts\" --exec \"ts-node index.ts",
     "test": "npm test"
   },
   "keywords": [
